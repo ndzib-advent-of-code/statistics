@@ -1,0 +1,99 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-teal-50 flex justify-center items-center min-h-screen">
+    <div class="bg-white px-4 py-20 shadow-lg rounded-3xl">
+        <div
+            class="flex [&>.item]:w-[250px] [&>.item]:rounded-2xl [&>.item]:flex [&>.item]:flex-col [&>.item]:items-center [&>.item]:pb-5 [&>.item]:pt-5 [&>.item:hover]:shadow-2xl [&>.item:hover]:opacity-70 [&>.item:hover]:bg-indigo-600 [&>.item:hover]:text-white [&>.item>.label]:text-sm [&>.item>.label]:font-light [&>.item>.value]:font-bold [&>.item>.value]:text-2xl">
+            <div class="item">
+                <span class="label">Impressions</span>
+                <h1 class="value">383</h1>
+            </div>
+
+            <div class="item">
+                <span class="label">Click-through rate</span>
+                <h1 class="value">9.1%</h1>
+            </div>
+
+            <div class="item">
+                <span class="label">Views</span>
+                <h1 class="value">97</h1>
+            </div>
+
+            <div class="item">
+                <span class="label">Unique Viewers</span>
+                <h1 class="value">54</h1>
+            </div>
+        </div>
+
+        <div class="pt-6 px-12">
+            <canvas class="h-[300px]" id="statsChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('statsChart');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [10, 20, 30, 60, 83, 100, 166, 180, 190, 220, 332, 300, 320, 360, 400, 498, 500, 550, 580, 610, 615, 620, 700, 713, 750, 800, 820, 830, 996],
+                datasets: [{
+                    label: '',
+                    data: [0, 225, 100, 110, 74, 5, 120, 115, 80, 115, 20, 140, 152, 40, 220, 5, 78, 5, 0, 74, 85, 75, 190, 195, 0, 80, 6, 150, 65, 0, 90, 0, 40, 0],
+                    tension: 0
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                scales: {
+                    y: {
+                        max: 225,
+                        ticks: {
+                            stepSize: 75,
+                            maxTicksLimit: 4,
+                            callback: function (value, inde, ticks) {
+                                return value + '%'
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            stepSize: 166,
+                            maxTicksLimit: 6,
+                            beginAtZero: true
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function (item) {
+                                return 'Fri, Apr 10, 7:51PM'
+                            },
+                            label: function (item) {
+                                return `${item.raw}%`
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
